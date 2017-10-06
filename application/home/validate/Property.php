@@ -1,5 +1,5 @@
 <?php
-namespace app\common\validate;
+namespace app\home\validate;
 use think\Validate;
 
 class Property extends Validate{

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"E:\www\twothink\public/../application/admin/view/default/property\index.html";i:1506754864;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"E:\www\twothink\public/../application/admin/view/default/category\index.html";i:1496373782;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -100,57 +100,26 @@
             
 
             
-<div class="main-title">
-    <h2>报修管理</h2>
-</div>
+	<div class="main-title">
+		<h2>分类管理</h2>
+	</div>
 
-<div class="cf">
-    <a class="btn" href="<?php echo url('add','pid='.$pid); ?>">新 增</a>
-    <a class="btn" href="javascript:;">删 除</a>
-</div>
-
-<div class="data-table table-striped">
-    <table>
-        <thead>
-        <tr>
-            <th class="row-selected">
-                <input class="checkbox check-all" type="checkbox">
-            </th>
-            <th>报修单号</th>
-            <th>报修人</th>
-            <th>电话</th>
-            <th>地址</th>
-            <th>问题</th>
-            <th>更新时间</th>
-            <th>状态</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$property): $mod = ($i % 2 );++$i;?>
-        <tr>
-            <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo $property['id']; ?>"> </td>
-            <td><?php echo $property['id']; ?></td>
-            <td><?php echo $property['name']; ?></td>
-            <td><?php echo $property['tel']; ?></td>
-            <td><?php echo $property['address']; ?></td>
-            <td><?php echo $property['problem']; ?></td>
-            <td><?php echo date('Y/m/d H:i',$property['update_time']); ?></td>
-            <td><?php echo $property['status']; ?></td>
-            <td>
-                <a title="编辑" href="<?php echo url('edit?id='.$property['id']); ?>">编辑</a>
-                <a class="confirm ajax-get" title="删除" href="<?php echo url('del?id='.$property['id']); ?>">删除</a>
-            </td>
-        </tr>
-        <?php endforeach; endif; else: echo "" ;endif; else: ?>
-        <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
-        <?php endif; ?>
-        </tbody>
-    </table>
-    <div class="page">
-        <?php echo $page; ?>
-    </div>
-</div>
+	<!-- 表格列表 -->
+	<div class="tb-unit posr">
+		<div class="tb-unit-bar">
+			<a class="btn" href="<?php echo url('add'); ?>">新 增</a>
+		</div>
+		<div class="category">
+			<div class="hd cf">
+				<div class="fold">折叠</div>
+				<div class="order">排序</div>
+				<div class="order">发布</div>
+				<div class="name">名称</div>
+			</div>
+			<?php echo action('category/tree', array($tree)); ?>
+		</div>
+	</div>
+	<!-- /表格列表 -->
 
         </div>
         <div class="cont-ft">
@@ -248,27 +217,59 @@
         }
     </script>
     
-<script type="text/javascript">
-    $(function() {
-        //点击排序
-        $('.list_sort').click(function(){
-            var url = $(this).attr('url');
-            var ids = $('.ids:checked');
-            var param = '';
-            if(ids.length > 0){
-                var str = new Array();
-                ids.each(function(){
-                    str.push($(this).val());
-                });
-                param = str.join(',');
-            }
+	<script type="text/javascript">
+		(function($){
+			/* 分类展开收起 */
+			$(".category dd").prev().find(".fold i").addClass("icon-unfold")
+				.click(function(){
+					var self = $(this);
+					if(self.hasClass("icon-unfold")){
+						self.closest("dt").next().slideUp("fast", function(){
+							self.removeClass("icon-unfold").addClass("icon-fold");
+						});
+					} else {
+						self.closest("dt").next().slideDown("fast", function(){
+							self.removeClass("icon-fold").addClass("icon-unfold");
+						});
+					}
+				});
 
-            if(url != undefined && url != ''){
-                window.location.href = url + '/ids/' + param;
-            }
-        });
-    });
-</script>
+			/* 三级分类删除新增按钮 */
+			$(".category dd dd .add-sub").remove();
+
+			/* 实时更新分类信息 */
+			$(".category")
+				.on("submit", "form", function(){
+					var self = $(this);
+					$.post(
+						self.attr("action"),
+						self.serialize(),
+						function(data){
+							/* 提示信息 */
+							var name = data.status ? "success" : "error", msg;
+							msg = self.find(".msg").addClass(name).text(data.info)
+									  .css("display", "inline-block");
+							setTimeout(function(){
+								msg.fadeOut(function(){
+									msg.text("").removeClass(name);
+								});
+							}, 1000);
+						},
+						"json"
+					);
+					return false;
+				})
+                .on("focus","input",function(){
+                    $(this).data('param',$(this).closest("form").serialize());
+
+                })
+                .on("blur", "input", function(){
+                    if($(this).data('param')!=$(this).closest("form").serialize()){
+                        $(this).closest("form").submit();
+                    }
+                });
+		})(jQuery);
+	</script>
 
 </body>
 </html>

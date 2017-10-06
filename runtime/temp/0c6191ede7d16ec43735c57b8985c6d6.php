@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:76:"E:\www\twothink\public/../application/admin/view/default/property\index.html";i:1506754864;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:73:"E:\www\twothink\public/../application/admin/view/default/owner\index.html";i:1507184865;s:73:"E:\www\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -101,11 +101,10 @@
 
             
 <div class="main-title">
-    <h2>报修管理</h2>
+    <h2>业主认证</h2>
 </div>
 
 <div class="cf">
-    <a class="btn" href="<?php echo url('add','pid='.$pid); ?>">新 增</a>
     <a class="btn" href="javascript:;">删 除</a>
 </div>
 
@@ -116,30 +115,25 @@
             <th class="row-selected">
                 <input class="checkbox check-all" type="checkbox">
             </th>
-            <th>报修单号</th>
-            <th>报修人</th>
-            <th>电话</th>
-            <th>地址</th>
-            <th>问题</th>
-            <th>更新时间</th>
+            <th>用户Uid</th>
+            <th>姓名</th>
+            <th>认证时间</th>
+            <th>描述</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$property): $mod = ($i % 2 );++$i;?>
+        <?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$member): $mod = ($i % 2 );++$i;?>
         <tr>
             <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo $property['id']; ?>"> </td>
-            <td><?php echo $property['id']; ?></td>
-            <td><?php echo $property['name']; ?></td>
-            <td><?php echo $property['tel']; ?></td>
-            <td><?php echo $property['address']; ?></td>
-            <td><?php echo $property['problem']; ?></td>
-            <td><?php echo date('Y/m/d H:i',$property['update_time']); ?></td>
-            <td><?php echo $property['status']; ?></td>
+            <td><?php echo $member['uid']; ?></td>
+            <td><?php echo $member['nickname']; ?></td>
+            <td><?php echo date('Y/m/d H:i',$member['reg_time']); ?></td>
+            <td><?php echo $member['description']; ?></td>
+            <td><?php echo $member['status']; ?></td>
             <td>
-                <a title="编辑" href="<?php echo url('edit?id='.$property['id']); ?>">编辑</a>
-                <a class="confirm ajax-get" title="删除" href="<?php echo url('del?id='.$property['id']); ?>">删除</a>
+                <a class="confirm ajax-get" title="删除" href="<?php echo url('del?id='.$document['id']); ?>">删除</a>
             </td>
         </tr>
         <?php endforeach; endif; else: echo "" ;endif; else: ?>

@@ -8,11 +8,13 @@ class Property extends Admin{
 
         /* 获取报修列表 */
         $pid = input('get.pid', 0);
-        $map  = array('status' => array('gt', -1));
-        $list = \think\Db::name('Property')->where($map)->select();
+        //$map  = array('status' => array('gt', -1));
+        $list = \think\Db::name('Property')->paginate(5);
+        // 获取分页显示
+        $page = $list->render();
         $this->assign('pid', $pid);
         $this->assign('list', $list);
-        $this->assign('meta_title' , '报修管理');
+        $this->assign('page' , $page);
         return $this->fetch();
     }
 
@@ -21,7 +23,7 @@ class Property extends Admin{
         if(request()->isPost()){
             $Property = model('Property');
             $post_data=\think\Request::instance()->post();
-            //print_r($post_data);die;
+
             //自动验证
             $validate = validate('Property');
 

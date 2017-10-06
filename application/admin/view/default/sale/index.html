@@ -2,11 +2,10 @@
 
 {block name="body"}
 <div class="main-title">
-    <h2>报修管理</h2>
+    <h2>活动管理</h2>
 </div>
 
 <div class="cf">
-    <a class="btn" href="{:url('add','pid='.$pid)}">新 增</a>
     <a class="btn" href="javascript:;">删 除</a>
 </div>
 
@@ -17,31 +16,26 @@
             <th class="row-selected">
                 <input class="checkbox check-all" type="checkbox">
             </th>
-            <th>报修单号</th>
-            <th>报修人</th>
-            <th>电话</th>
-            <th>地址</th>
-            <th>问题</th>
-            <th>更新时间</th>
+            <th>发布人</th>
+            <th>活动名称</th>
+            <th>发布时间</th>
+            <th>描述</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
         {notempty name="list"}
-        {volist name="list" id="property"}
+        {volist name="list" id="document"}
         <tr>
             <td><input class="ids row-selected" type="checkbox" name="" id="" value="{$property['id']}"> </td>
-            <td>{$property.id}</td>
-            <td>{$property.name}</td>
-            <td>{$property.tel}</td>
-            <td>{$property.address}</td>
-            <td>{$property.problem}</td>
-            <td>{$property.update_time|date='Y/m/d H:i',###}</td>
+            <td>admin</td>
+            <td>{$document.title}</td>
+            <td>{$document.create_time|date='Y/m/d H:i',###}</td>
+            <td>{$property.description}</td>
             <td>{$property.status}</td>
             <td>
-                <a title="编辑" href="{:url('edit?id='.$property['id'])}">编辑</a>
-                <a class="confirm ajax-get" title="删除" href="{:url('del?id='.$property['id'])}">删除</a>
+                <a class="confirm ajax-get" title="删除" href="{:url('del?id='.$document['id'])}">删除</a>
             </td>
         </tr>
         {/volist}

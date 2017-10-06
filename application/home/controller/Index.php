@@ -29,4 +29,55 @@ class Index extends Home{
         return $this->fetch();
     }
 
+    public function online(){
+        //判断是否登录
+        if(!is_login()){
+            //跳转到登录页面
+             $this->redirect('/user/login/index.html');
+             die;
+        }
+        //接收表单数据
+        if(request()->isPost()) {
+            $Property = model('Property');
+            $post_data = \think\Request::instance()->post();
+
+            //自动验证
+            $validate = validate('Property');
+
+          if (!$validate->check($post_data)) {
+                return $this->error($validate->getError());
+            }
+
+            $data = $Property->create($post_data);
+            if ($data) {
+                $this->success('新增成功', url('index'));
+            } else {
+                $this->error($Property->getError());
+            }
+
+        }
+            return $this->fetch();
+
+    }
+
+    public function notice(){
+
+        //获取所有小区通知(默认博客分类)
+        $map = array('category_id' => array('in', 2) );
+        $list = \think\Db::name('document')->where($map)->select();
+        $this->assign('list', $list);
+        return $this->fetch();
+    }
+
+    public function noticedetail(){
+
+        //通知详情
+        $id = array_unique((array)input('id/a',0));
+        $map = array('id' => array('in', $id) );
+        $list=\think\Db::name('document')->where($map)->select();
+        $content=\think\Db::name('document_article')->where($map)->select();
+        $this->assign('list',$list);
+        $this->assign('content',$content);
+        return $this->fetch();
+    }
 }
