@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"E:\www\twothink\public/../application/home/view/default/index\notice.html";i:1507470358;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:77:"E:\www\twothink\public/../application/home/view/default/service\activity.html";i:1507635183;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -44,22 +44,21 @@
     </nav>
     <!--导航结束-->
 
-    <div class="container-fluid">
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <td>活动名称</td>
+                <td>活动发布时间</td>
+            </tr>
 
-        <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$document): $mod = ($i % 2 );++$i;?>
-        <div class="row noticeList">
-            <a href="<?php echo url('noticedetail?id='.$document['id']); ?>">
-            <div class="col-xs-2">
-                <img class="noticeImg" src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" />
-            </div>
-            <div class="col-xs-10">
-                <p class="title"><?php echo $document['title']; ?></p>
-                <p class="intro"><?php echo $document['description']; ?></p>
-                <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right"><?php echo $document['create_time']; ?></span> </p>
-            </div>
-            </a>
-        </div>
-        <?php endforeach; endif; else: echo "" ;endif; ?>
+            <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$relation): $mod = ($i % 2 );++$i;?>
+            <tr>
+                <td><a href="<?php echo url('detail?id='.$repair['id']); ?>"><?php echo $relation['getdoc']['title']; ?></a></td>
+                <td><?php echo date('Y/m/d H:i:s',$relation['create_time']); ?></td>
+            </tr>
+            <?php endforeach; endif; else: echo "" ;endif; ?>
+
+        </table>
 
     </div>
 </div>

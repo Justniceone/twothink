@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"E:\www\twothink\public/../application/home/view/default/service\index.html";i:1506931938;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:74:"E:\www\twothink\public/../application/home/view/default/service\index.html";i:1507628871;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -29,7 +29,7 @@
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid text-center">
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
+                <p class="navbar-text"><a href="/home/index/index.html" class="navbar-link">首页</a></p>
             </div>
             <div class="col-xs-3">
                 <p class="navbar-text"><a href="#" class="navbar-link">服务</a></p>
@@ -50,7 +50,7 @@
         <div class="row noticeList">
             <a href="<?php echo url('detail?id='.$document['id']); ?>">
                 <div class="col-xs-2">
-                    <img class="noticeImg" src="/asset/image/tesla.jpg" />
+                    <img class="noticeImg" src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" />
                 </div>
                 <div class="col-xs-10">
                     <p class="title"><?php echo $document['title']; ?></p>

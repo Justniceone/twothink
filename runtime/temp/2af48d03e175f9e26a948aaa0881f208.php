@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"E:\www\twothink\public/../application/home/view/default/sale\index.html";i:1507082599;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"E:\www\twothink\public/../application/home/view/default/sale\index.html";i:1507467780;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -45,27 +45,62 @@
     <!--导航结束-->
 
     <div class="container-fluid">
+        <div class="blank"></div>
+        <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">租</a></li>
+                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">售</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <p class="text-danger">免费提供小区内的租房信息</p>
+                    <div class="row">
 
-        <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$document): $mod = ($i % 2 );++$i;?>
-        <div class="row noticeList">
-            <a href="<?php echo url('detail?id='.$document['id']); ?>">
-                <div class="col-xs-2">
-                    <img class="noticeImg" src="/asset/image/sale.jpg" />
+                        <div class="col-xs-6 col-md-4">
+                            <div class="thumbnail">
+                                <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$document): $mod = ($i % 2 );++$i;?>
+                                <img src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" alt="...">
+                                <div class="caption">
+                                    <h4><?php echo $document['title']; ?></h4>
+                                    <p class="zushouInfo">1080P套九出租,精装修,拎包入住</p>
+                                    <p class="text-danger">19000元/月</p>
+                                    <p><a href="<?php echo url('detail?id='.$document['id']); ?>" class="btn btn-danger zushouBtn">详细信息</a> </p>
+                                </div>
+                                <?php endforeach; endif; else: echo "" ;endif; ?>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="col-xs-10">
-                    <p class="title"><?php echo $document['title']; ?></p>
-                    <p class="intro"><?php echo $document['description']; ?></p>
-                    <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right">2016-05-11</span> </p>
+                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <p class="text-danger">免费提供小区内的二手房信息</p>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="thumbnail">
+                                    <?php if(is_array($sold) || $sold instanceof \think\Collection || $sold instanceof \think\Paginator): $i = 0; $__LIST__ = $sold;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$document): $mod = ($i % 2 );++$i;?>
+                                    <img src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" alt="...">
+                                    <div class="caption">
+                                        <h4><?php echo $document['title']; ?></h4>
+                                        <p class="zushouInfo">108平套三出售,精装修,拎包入住</p>
+                                        <p class="text-danger">95万</p>
+                                        <p><a href="<?php echo url('detail?id='.$document['id']); ?>" class="btn btn-danger zushouBtn">详细信息</a> </p>
+                                    </div>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
-            </a>
+            </div>
         </div>
-        <?php endforeach; endif; else: echo "" ;endif; ?>
-
     </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/asset//jquery-1.11.2.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/asset/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/asset/jquery-1.11.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

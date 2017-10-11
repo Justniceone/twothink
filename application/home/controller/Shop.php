@@ -20,4 +20,9 @@ class Shop extends Home{
         $this->assign('content',$content);
         return $this->fetch();
     }
+
+    public function test(){
+     //echo gethostbyname('www.baidu.com');
+
+    }
 }

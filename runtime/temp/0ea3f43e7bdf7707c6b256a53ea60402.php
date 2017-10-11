@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"E:\www\twothink\public/../application/home/view/default/shop\index.html";i:1506931938;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"E:\www\twothink\public/../application/home/view/default/shop\index.html";i:1507453244;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -50,12 +50,12 @@
         <div class="row noticeList">
             <a href="<?php echo url('detail?id='.$document['id']); ?>">
                 <div class="col-xs-2">
-                    <img class="noticeImg" src="/asset/image/tesla.jpg" />
+                    <img class="noticeImg" src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" />
                 </div>
                 <div class="col-xs-10">
                     <p class="title"><?php echo $document['title']; ?></p>
                     <p class="intro"><?php echo $document['description']; ?></p>
-                    <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right">2016-05-11</span> </p>
+                    <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right"><?php echo date('Y/m-d',$document['create_time']); ?></span> </p>
                 </div>
             </a>
         </div>

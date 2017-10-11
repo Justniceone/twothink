@@ -44,27 +44,62 @@
     <!--导航结束-->
 
     <div class="container-fluid">
+        <div class="blank"></div>
+        <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+            <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">租</a></li>
+                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">售</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                    <p class="text-danger">免费提供小区内的租房信息</p>
+                    <div class="row">
 
-        {volist name="list" id="document"}
-        <div class="row noticeList">
-            <a href="{:url('detail?id='.$document['id'])}">
-                <div class="col-xs-2">
-                    <img class="noticeImg" src="/asset/image/sale.jpg" />
+                        <div class="col-xs-6 col-md-4">
+                            <div class="thumbnail">
+                                {volist name="list" id="document"}
+                                <img src="__ROOT__{$document.cover_id|get_cover_path}" alt="...">
+                                <div class="caption">
+                                    <h4>{$document.title}</h4>
+                                    <p class="zushouInfo">1080P套九出租,精装修,拎包入住</p>
+                                    <p class="text-danger">19000元/月</p>
+                                    <p><a href="{:url('detail?id='.$document['id'])}" class="btn btn-danger zushouBtn">详细信息</a> </p>
+                                </div>
+                                {/volist}
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
-                <div class="col-xs-10">
-                    <p class="title">{$document.title}</p>
-                    <p class="intro">{$document.description}</p>
-                    <p class="info">浏览: {$document.view} <span class="pull-right">2016-05-11</span> </p>
+                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                    <div class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                        <p class="text-danger">免费提供小区内的二手房信息</p>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="thumbnail">
+                                    {volist name="sold" id="document"}
+                                    <img src="__ROOT__{$document.cover_id|get_cover_path}" alt="...">
+                                    <div class="caption">
+                                        <h4>{$document.title}</h4>
+                                        <p class="zushouInfo">108平套三出售,精装修,拎包入住</p>
+                                        <p class="text-danger">95万</p>
+                                        <p><a href="{:url('detail?id='.$document['id'])}" class="btn btn-danger zushouBtn">详细信息</a> </p>
+                                    </div>
+                                    {/volist}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
-            </a>
+            </div>
         </div>
-        {/volist}
-
     </div>
-</div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/asset//jquery-1.11.2.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/asset/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/asset/jquery-1.11.2.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

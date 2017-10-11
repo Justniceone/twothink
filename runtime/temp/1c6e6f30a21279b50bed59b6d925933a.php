@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"E:\www\twothink\public/../application/home/view/default/service\center.html";i:1507172645;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"E:\www\twothink\public/../application/home/view/default/service\center.html";i:1507629459;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -51,7 +51,7 @@
                 <img src="/asset/image/5.png" width="60" height="60" />
             </div>
             <div class="col-xs-9">
-                admin<br/>
+                <?php echo $username; ?><br/>
                 光明花园小区<br/>
                 积分:<span class="text-danger">100</span>
             </div>
@@ -59,8 +59,8 @@
         <div class="blank"></div>
         <div class="row text-center myLabel">
             <div class="col-xs-4 label-danger"><a href="#"><span class="iconfont">&#xe60b;</span>我的资料</a></div>
-            <div class="col-xs-4 label-success"><a href="#"><span class="iconfont">&#xe609;</span>我的报修</a></div>
-            <div class="col-xs-4 label-primary"><a href="#"><span class="iconfont">&#xe606;</span>报名的活动</a></div>
+            <div class="col-xs-4 label-success"><a href="/home/service/repair.html"><span class="iconfont">&#xe609;</span>我的报修</a></div>
+            <div class="col-xs-4 label-primary"><a href="/home/service/activity.html"><span class="iconfont">&#xe606;</span>报名的活动</a></div>
         </div>
         <div class="blank"></div>
         <div>

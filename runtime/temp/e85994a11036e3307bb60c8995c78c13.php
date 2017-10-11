@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"E:\www\twothink\public/../application/home/view/default/activity\index.html";i:1507082709;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"E:\www\twothink\public/../application/home/view/default/activity\index.html";i:1507469991;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -21,6 +21,7 @@
     <style>
         .main{margin-bottom: 60px;}
         .indexLabel{padding: 10px 0; margin: 10px 0 0; color: #fff;}
+        #more{margin: 0 auto; width: 100px}
     </style>
 </head>
 <body>
@@ -44,23 +45,25 @@
     </nav>
     <!--导航结束-->
 
-    <div class="container-fluid">
+    <div class="container-fluid box">
 
         <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$document): $mod = ($i % 2 );++$i;?>
-        <div class="row noticeList">
+        <div class="row noticeList ">
             <a href="<?php echo url('detail?id='.$document['id']); ?>">
                 <div class="col-xs-2">
-                    <img class="noticeImg" src="/asset/image/xp.jpg" />
+                    <img class="noticeImg" src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" />
                 </div>
                 <div class="col-xs-10">
                     <p class="title"><?php echo $document['title']; ?></p>
                     <p class="intro"><?php echo $document['description']; ?></p>
-                    <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right">2016-05-11</span> </p>
+                    <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right">创建日期:<?php echo date('Y/m-d',$document['create_time']); ?></span> </p>
                 </div>
             </a>
         </div>
         <?php endforeach; endif; else: echo "" ;endif; ?>
-
+    </div>
+    <div id="more">
+        <input type="button" value="获取更多" class="btn btn-primary" id="getmore" >
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -68,4 +71,47 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 </body>
+<script type="text/javascript">
+    var offset=0;
+    var length=3;
+    var getmore=function(){
+        //发送ajax请求获取更多数据
+        offset+=3;
+        $.getJSON("/home/activity/more.html",{'offset':offset,'length':length},function(data){
+
+            //将数据添加到页面
+            if(data.length ===2){
+                $('#getmore').val('没有更多数据了');
+                $('#getmore').attr('disabled',true);
+                return false;
+            }
+
+            var html='';
+            $.each(JSON.parse(data),function(index,obj){
+                html+='<div class="row noticeList ">';
+                html+='<a href="/home/activity/detail/id/'+obj.id+'.html">';
+                html+='<div class="col-xs-2">';
+                html+="<img class='noticeImg' src='__ROOT__<?php echo get_cover_path($document['cover_id']); ?>'/>";
+                html+='</div>';
+                html+='<div class="col-xs-10">';
+                html+='<p class="title">'+obj.title+'</p>';
+                html+='<p class="intro"><?php echo $document['description']; ?></p>';
+                html+='<p class="info">浏览: '+obj.view+' <span class="pull-right">创建日期:'+ new Date(obj.create_time*1000).toLocaleDateString() +'</span></p>';
+                html+='</div>';
+                html+='</a>';
+                html+='</div>';
+            });
+
+            $('.box').append(html);
+        })
+    };
+    $('#more').click(getmore);
+        //发送ajax请求获取更多数据
+
+    //返回列表页面时自动调用getmore方法
+    //console.log(history.back());
+/*    if(history.length>5){
+        getmore();
+    }*/
+</script>
 </html>

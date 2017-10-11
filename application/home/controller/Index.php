@@ -61,6 +61,7 @@ class Index extends Home{
     }
 
     public function notice(){
+        //model("Document")->detail();
 
         //获取所有小区通知(默认博客分类)
         $map = array('category_id' => array('in', 2) );

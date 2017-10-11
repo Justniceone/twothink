@@ -6,7 +6,7 @@
 </div>
 
 <div class="cf">
-    <a class="btn" href="javascript:;">删 除</a>
+    <a class="btn" href="javascript:;">审 核</a>
 </div>
 
 <div class="data-table table-striped">
@@ -19,23 +19,27 @@
             <th>用户Uid</th>
             <th>姓名</th>
             <th>认证时间</th>
-            <th>描述</th>
+            <th>房号</th>
+            <th>身份证号</th>
+            <th>关系</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
         {notempty name="list"}
-        {volist name="list" id="member"}
+        {volist name="list" id="owner"}
         <tr>
             <td><input class="ids row-selected" type="checkbox" name="" id="" value="{$property['id']}"> </td>
-            <td>{$member.uid}</td>
-            <td>{$member.nickname}</td>
-            <td>{$member.reg_time|date='Y/m/d H:i',###}</td>
-            <td>{$member.description}</td>
-            <td>{$member.status}</td>
+            <td>{$owner.uid}</td>
+            <td>{$owner.name}</td>
+            <td>{$owner.create_time|date='Y/m/d H:i',###}</td>
+            <td>{$owner.room}</td>
+            <td>{$owner.id_nu}</td>
+            <td>{$owner.relation}</td>
+            <td>{$owner.status}</td>
             <td>
-                <a class="confirm ajax-get" title="删除" href="{:url('del?id='.$document['id'])}">删除</a>
+                <a class="confirm" href="{:url('auth?uid='.$owner['uid'])}">审核</a>
             </td>
         </tr>
         {/volist}

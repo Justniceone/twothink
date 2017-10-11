@@ -49,12 +49,12 @@
         <div class="row noticeList">
             <a href="{:url('noticedetail?id='.$document['id'])}">
             <div class="col-xs-2">
-                <img class="noticeImg" src="/asset/image/tj.jpg" />
+                <img class="noticeImg" src="__ROOT__{$document.cover_id|get_cover_path}" />
             </div>
             <div class="col-xs-10">
                 <p class="title">{$document.title}</p>
                 <p class="intro">{$document.description}</p>
-                <p class="info">浏览: {$document.view} <span class="pull-right">2016-05-11</span> </p>
+                <p class="info">浏览: {$document.view} <span class="pull-right">{$document.create_time}</span> </p>
             </div>
             </a>
         </div>

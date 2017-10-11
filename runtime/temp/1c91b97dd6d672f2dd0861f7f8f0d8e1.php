@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\www\twothink\public/../application/home/view/default/activity\detail.html";i:1506744194;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\www\twothink\public/../application/home/view/default/activity\detail.html";i:1507473429;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -48,18 +48,42 @@
         <?php if(is_array($content) || $content instanceof \think\Collection || $content instanceof \think\Paginator): $i = 0; $__LIST__ = $content;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($i % 2 );++$i;endforeach; endif; else: echo "" ;endif; if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$property): $mod = ($i % 2 );++$i;?>
         <div class="blank"></div>
         <h3 class="noticeDetailTitle"><strong><?php echo $property['title']; ?></strong></h3>
-        <div class="noticeDetailInfo"><?php echo $property['description']; ?></div>
+        <div class="noticeDetailInfo id" data-id="<?php echo $property['id']; ?>"><?php echo $property['description']; ?></div>
         <div class="noticeDetailInfo"><?php echo date('Y/m/d',$property['create_time']); ?></div>
         <div class="noticeDetailContent">
         <?php echo $detail['content']; ?>
         </div>
         <?php endforeach; endif; else: echo "" ;endif; ?>
+        <a href="/home/activity/index.html" class="btn btn-info">返回</a>
+        <a href="javascript:;" class="btn btn-success" id="join">申请参与活动</a>
     </div>
-
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/asset/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 </body>
+<script type="text/javascript">
+    $('#join').click(function(){
+        if(confirm('确定参加活动?')){
+            //发送ajax请求参加活动
+            //获取参加活动的id
+            var id=$('.id').attr('data-id');
+            $.getJSON("/home/activity/join.html",{id:id},function(data){
+                if(data.msg==='请登录'){
+                    //跳转到登录页面
+                    self.location='/user/login/index.html';
+                }else if(data.msg='已报名') {
+                    //禁用报名按钮
+                    $('#join').fadeOut('slow',function(){
+                        alert('已经报过名了哦');
+                    });
+                    //$('#join').attr('disabled',true);
+                }else{
+                    alert(data.msg);
+                }
+            })
+        }
+    })
+</script>
 </html>

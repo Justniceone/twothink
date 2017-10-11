@@ -301,7 +301,7 @@ class File extends SplFileObject
         if (!$this->check()) {
             return false;
         }
-        $path = rtrim($path, DS) . DS;
+        //$path = rtrim($path, DS) . DS;
         // 文件保存命名规则
         $saveName = $this->buildSaveName($savename);
         $filename = $path . $saveName;

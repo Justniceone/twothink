@@ -1,5 +1,8 @@
 <?php
 namespace app\home\controller;
+use app\home\model\Property;
+use app\user\model\Member;
+
 class Service extends Home {
     public function index(){
 
@@ -47,6 +50,12 @@ class Service extends Home {
     public function center(){
 
         //我的资料
+        if(!is_login()){
+            $this->redirect('user/login/index');
+        }
+        //根据id查询出nickname
+        $member=Member::get(['uid'=>is_login()]);
+        $this->assign('username',$member->nickname);
         return $this->fetch();
     }
 
@@ -56,17 +65,34 @@ class Service extends Home {
         return $this->fetch();
     }
 
+    public function repair(){
+
+        //我的报修
+        $map=['uid'=>is_login()];
+        $list=\think\Db::name('property')->where($map)->select();
+        $this->assign('list',$list);
+        return $this->fetch();
+    }
     public function auth()
     {
 
         //业主认证
-        //将信息保存到member表中
+        if(!is_login()){
+            $this->redirect('user/login/index');
+        }
+        //将信息保存到owner表中
         if (request()->isPost()) {
-            $member = model('member');
-            $post_data = \think\Request::instance()->post();
+            //判断是否有相同名字已经认证过
 
+            $member = model('owner');
+            $post_data = \think\Request::instance()->post();
+            //获取用户UID
+
+            $post_data['uid']=is_login();
+            //状态为未审核
+            $post_data['status']='未审核';
             //自动验证
-            $validate = validate('member');
+            $validate = validate('owner');
 
             if (!$validate->check($post_data)) {
                 return $this->error($validate->getError());
@@ -80,6 +106,21 @@ class Service extends Home {
             }
 
         }
+        return $this->fetch();
+    }
+
+    public function activity(){
+        //我报名的活动
+        $list=\think\Db::name('relation')->where(['uid'=>is_login()])->select();
+        /*$uids=[];
+        foreach ($list as $k=>$value){
+            $uids[$k]=$value['aid'];
+        }
+        //根据uids查询出所有活动
+        //$map = array('id' => array('in', $id) );//['id'=>['in',$id]]
+        $activities= \think\Db::name('document')->where(['id'=>['in',$uids]])->select();*/
+        $this->assign('list',$list);
+        //$this->assign('activities',$activities);
         return $this->fetch();
     }
 }
