@@ -52,7 +52,7 @@
 
             {volist name="list" id="relation"}
             <tr>
-                <td><a href="{:url('detail?id='.$repair['id'])}">{$relation.getdoc.title}</a></td>
+                <td><a href="{:url('detail?id='.$repair['id'])}">{$relation.document.title}</a></td>
                 <td>{$relation.create_time|date='Y/m/d H:i:s',###}</td>
             </tr>
             {/volist}

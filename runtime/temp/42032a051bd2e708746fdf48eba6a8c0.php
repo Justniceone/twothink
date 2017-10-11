@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"E:\www\twothink\public/../application/home/view/default/index\notice.html";i:1507470358;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"E:\www\twothink\public/../application/home/view/default/index\notice.html";i:1507685728;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -55,7 +55,7 @@
             <div class="col-xs-10">
                 <p class="title"><?php echo $document['title']; ?></p>
                 <p class="intro"><?php echo $document['description']; ?></p>
-                <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right"><?php echo $document['create_time']; ?></span> </p>
+                <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right"><?php echo date('Y/m/d H:i',$document['create_time']); ?></span> </p>
             </div>
             </a>
         </div>

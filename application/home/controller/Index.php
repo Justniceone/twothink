@@ -61,9 +61,8 @@ class Index extends Home{
     }
 
     public function notice(){
-        //model("Document")->detail();
 
-        //获取所有小区通知(默认博客分类)
+        //获取所有小区通知(文档模型)
         $map = array('category_id' => array('in', 2) );
         $list = \think\Db::name('document')->where($map)->select();
         $this->assign('list', $list);
