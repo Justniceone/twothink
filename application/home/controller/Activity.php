@@ -43,15 +43,15 @@ class Activity extends Home {
             $relation=new Relation();
             //根据id查询是否已经报名过了
             $result=Relation::get(['uid'=>is_login(),'aid'=>$id]);
+
             if($result){
                 //该活动已经报过名
                 echo json_encode(['msg'=>'已报名']);die;
-            }
-            if(!$relation->save(['uid'=>is_login(),'aid'=>$id])){
-                var_dump($relation->getError());
             }else{
-                echo  json_encode(['msg'=>'报名成功']);
+                $relation->save(['uid'=>is_login(),'aid'=>$id]);
+                echo json_encode(['msg'=>'报名成功']);
             }
+
         }else{
             //没有登录返回请登录
             echo  json_encode(['msg'=>'请登录']);

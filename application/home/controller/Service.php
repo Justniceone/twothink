@@ -123,4 +123,11 @@ class Service extends Home {
         //$this->assign('activities',$activities);
         return $this->fetch();
     }
+
+    public function test(){
+
+        $list=\think\Db::name('document')->where(['category_id'=>48])->select();
+        $this->assign('list',$list);
+        return $this->fetch("view");
+    }
 }

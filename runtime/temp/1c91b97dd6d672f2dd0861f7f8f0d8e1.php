@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\www\twothink\public/../application/home/view/default/activity\detail.html";i:1507473429;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:76:"E:\www\twothink\public/../application/home/view/default/activity\detail.html";i:1507705671;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -73,7 +73,7 @@
                 if(data.msg==='请登录'){
                     //跳转到登录页面
                     self.location='/user/login/index.html';
-                }else if(data.msg='已报名') {
+                }else if(data.msg==='已报名') {
                     //禁用报名按钮
                     $('#join').fadeOut('slow',function(){
                         alert('已经报过名了哦');
@@ -81,6 +81,7 @@
                     //$('#join').attr('disabled',true);
                 }else{
                     alert(data.msg);
+                    $('#join').fadeOut(2000);
                 }
             })
         }

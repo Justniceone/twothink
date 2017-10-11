@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"E:\www\twothink\public/../application/home/view/default/service\view.html";i:1507628871;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -28,7 +29,7 @@
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid text-center">
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
+                <p class="navbar-text"><a href="/home/index/index.html" class="navbar-link">首页</a></p>
             </div>
             <div class="col-xs-3">
                 <p class="navbar-text"><a href="#" class="navbar-link">服务</a></p>
@@ -44,47 +45,27 @@
     <!--导航结束-->
 
     <div class="container-fluid">
-        {volist name="content" id="detail"}{/volist}
-        {volist name="list" id="property"}
-        <div class="blank"></div>
-        <h3 class="noticeDetailTitle"><strong>{$property.title}</strong></h3>
-        <div class="noticeDetailInfo id" data-id="{$property.id}">{$property.description}</div>
-        <div class="noticeDetailInfo">{$property.create_time|date='Y/m/d',###}</div>
-        <div class="noticeDetailContent">
-        {$detail.content}
+
+        <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$document): $mod = ($i % 2 );++$i;?>
+        <div class="row noticeList">
+            <a href="<?php echo url('detail?id='.$document['id']); ?>">
+                <div class="col-xs-2">
+                    <img class="noticeImg" src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>" />
+                </div>
+                <div class="col-xs-10">
+                    <p class="title"><?php echo $document['title']; ?></p>
+                    <p class="intro"><?php echo $document['description']; ?></p>
+                    <p class="info">浏览: <?php echo $document['view']; ?> <span class="pull-right">2016-05-11</span> </p>
+                </div>
+            </a>
         </div>
-        {/volist}
-        <a href="/home/activity/index.html" class="btn btn-info">返回</a>
-        <a href="javascript:;" class="btn btn-success" id="join">申请参与活动</a>
+        <?php endforeach; endif; else: echo "" ;endif; ?>
+
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/asset/jquery-1.11.2.min.js"></script>
+<script src="/asset//jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/asset/bootstrap/js/bootstrap.min.js"></script>
 </body>
-<script type="text/javascript">
-    $('#join').click(function(){
-        if(confirm('确定参加活动?')){
-            //发送ajax请求参加活动
-            //获取参加活动的id
-            var id=$('.id').attr('data-id');
-            $.getJSON("/home/activity/join.html",{id:id},function(data){
-                if(data.msg==='请登录'){
-                    //跳转到登录页面
-                    self.location='/user/login/index.html';
-                }else if(data.msg==='已报名') {
-                    //禁用报名按钮
-                    $('#join').fadeOut('slow',function(){
-                        alert('已经报过名了哦');
-                    });
-                    //$('#join').attr('disabled',true);
-                }else{
-                    alert(data.msg);
-                    $('#join').fadeOut(2000);
-                }
-            })
-        }
-    })
-</script>
 </html>
