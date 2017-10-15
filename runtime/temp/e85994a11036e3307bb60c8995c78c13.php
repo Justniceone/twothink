@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"E:\www\twothink\public/../application/home/view/default/activity\index.html";i:1507469991;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"E:\www\twothink\public/../application/home/view/default/activity\index.html";i:1508045161;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -87,11 +87,12 @@
             }
 
             var html='';
+            var src="__ROOT__<?php echo get_cover_path($document['cover_id']); ?>";
             $.each(JSON.parse(data),function(index,obj){
                 html+='<div class="row noticeList ">';
                 html+='<a href="/home/activity/detail/id/'+obj.id+'.html">';
                 html+='<div class="col-xs-2">';
-                html+="<img class='noticeImg' src='__ROOT__<?php echo get_cover_path($document['cover_id']); ?>'/>";
+                html+="<img class='noticeImg' src="+src+">";
                 html+='</div>';
                 html+='<div class="col-xs-10">';
                 html+='<p class="title">'+obj.title+'</p>';

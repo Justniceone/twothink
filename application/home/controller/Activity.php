@@ -59,12 +59,4 @@ class Activity extends Home {
 
     }
 
-    public function test(){
-        $m=4;$n=3;
-        if($m=12||$n=9){
-            $m++;$n++;
-        }
-        echo $m;
-        var_dump( $n);
-    }
 }

@@ -86,11 +86,12 @@
             }
 
             var html='';
+            var src="__ROOT__{$document.cover_id|get_cover_path}";
             $.each(JSON.parse(data),function(index,obj){
                 html+='<div class="row noticeList ">';
                 html+='<a href="/home/activity/detail/id/'+obj.id+'.html">';
                 html+='<div class="col-xs-2">';
-                html+="<img class='noticeImg' src='__ROOT__{$document.cover_id|get_cover_path}'/>";
+                html+="<img class='noticeImg' src="+src+">";
                 html+='</div>';
                 html+='<div class="col-xs-10">';
                 html+='<p class="title">'+obj.title+'</p>';
